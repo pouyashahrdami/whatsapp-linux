@@ -2,12 +2,16 @@ import { app, BrowserWindow, ipcMain, shell } from "electron";
 import path from "path";
 import ChromeVersionFix from "./fix/chrome-version-fix";
 import Electron21Fix from "./fix/electron-21-fix";
+import GlobalHotkeyModule from "./module/global-hotkey-module";
 import HotkeyModule from "./module/hotkey-module";
 import ModuleManager from "./module/module-manager";
 import SpellCheckModule from "./module/spellcheck-module";
 import TrayModule from "./module/tray-module";
 import WindowSettingsModule from "./module/window-settings-module";
 import ZoomModule from "./module/zoom-module";
+import Settings from "./settings";
+
+const preferences = new Settings("preferences");
 
 // Derive the user agent from the bundled Chromium version so WhatsApp Web never
 // shows the "update your browser" page after an Electron upgrade.
@@ -26,7 +30,7 @@ export default class WhatsApp {
             height: 700,
             minWidth: 650,
             minHeight: 550,
-            show: !process.argv.includes("--start-hidden"),
+            show: !process.argv.includes("--start-hidden") && !preferences.get("startMinimized", false),
             webPreferences: {
                 preload: path.join(__dirname, 'preload.js'),
                 contextIsolation: false, // native Notification override in preload :(
@@ -41,6 +45,7 @@ export default class WhatsApp {
             new WindowSettingsModule(this, this.window),
             new ZoomModule(this.window),
             new SpellCheckModule(this.window),
+            new GlobalHotkeyModule(this.window),
             new ChromeVersionFix(this)
         ]);
     }

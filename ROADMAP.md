@@ -27,6 +27,13 @@ Prioritized. Items near the top are high value / low risk.
   menu with suggestions / "Add to dictionary" (`src/module/spellcheck-module.ts`).
 - ✅ **Taskbar unread badge.** `app.setBadgeCount(unread)` wired into
   `tray-module.ts` so the count shows on the dock/taskbar too.
+- ✅ **Launch at startup.** Tray Preferences toggle that manages a freedesktop
+  autostart entry (`src/auto-launch.ts`).
+- ✅ **Global show/hide hotkey.** `Ctrl+Alt+W` summons/hides the window from
+  anywhere (`src/module/global-hotkey-module.ts`).
+- ✅ **Left-click tray to toggle window** (where the desktop emits tray clicks).
+- ✅ **Close-to-tray & start-minimized preferences** in the tray Preferences
+  submenu (saved settings, not just the `--start-hidden` CLI flag).
 - ⬜ **App menu / accelerators.** Menu is currently `null`, so standard
   Copy/Paste/Cut/Select-All accelerators and Find don't work reliably. Add a hidden
   menu with edit roles.

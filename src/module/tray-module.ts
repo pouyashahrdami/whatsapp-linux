@@ -1,10 +1,14 @@
 import { app, BrowserWindow, Menu, MenuItem, Tray } from "electron";
+import { isAutoLaunchEnabled, setAutoLaunch } from "../auto-launch";
+import Settings from "../settings";
 import { findIcon, getUnreadMessages } from "../util";
 import WhatsApp from "../whatsapp";
 import Module from "./module";
 
 const ICON = findIcon("io.github.pouyashahrdami.WhatsAppDesktop.png");
 const ICON_UNREAD = findIcon("io.github.pouyashahrdami.WhatsAppDesktop-unread.png");
+
+const preferences = new Settings("preferences");
 
 export default class TrayModule extends Module {
 
@@ -29,6 +33,31 @@ export default class TrayModule extends Module {
                 label: this.window.isVisible() ? "Minimize to tray" : "Show WhatsApp",
                 click: () => this.onClickFirstItem()
             },
+            { type: "separator" },
+            {
+                label: "Preferences",
+                submenu: [
+                    {
+                        label: "Launch at startup",
+                        type: "checkbox",
+                        checked: isAutoLaunchEnabled(),
+                        click: item => setAutoLaunch(item.checked)
+                    },
+                    {
+                        label: "Start minimized",
+                        type: "checkbox",
+                        checked: preferences.get("startMinimized", false),
+                        click: item => preferences.set("startMinimized", item.checked)
+                    },
+                    {
+                        label: "Close to tray",
+                        type: "checkbox",
+                        checked: preferences.get("closeToTray", true),
+                        click: item => preferences.set("closeToTray", item.checked)
+                    }
+                ]
+            },
+            { type: "separator" },
             {
                 label: "Quit WhatsApp",
                 click: () => this.whatsApp.quit()
@@ -64,11 +93,20 @@ export default class TrayModule extends Module {
     }
 
     private registerListeners() {
+        // Left-click the tray icon to toggle the window (where the desktop's
+        // tray implementation emits click events; many Linux indicators don't).
+        this.tray.on("click", () => this.onClickFirstItem());
+
         this.window.on("show", () => this.updateMenu());
         this.window.on("hide", () => this.updateMenu());
 
         this.window.on("close", event => {
             if (this.whatsApp.quitting) return;
+
+            if (!preferences.get("closeToTray", true)) {
+                this.whatsApp.quit();
+                return;
+            }
 
             event.preventDefault();
             this.window.hide();
