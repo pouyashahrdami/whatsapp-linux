@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="banner.png" alt="Electron Linux WhatsApp — an open source, native-like Electron desktop client for WhatsApp on Linux" width="100%">
+</p>
+
 # WhatsApp Desktop for Linux (unofficial)
 
 A WhatsApp Linux client built with Electron. As WhatsApp doesn't ship an official
