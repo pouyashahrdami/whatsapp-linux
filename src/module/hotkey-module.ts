@@ -72,7 +72,7 @@ export default class HotkeyModule extends Module {
             {
                 control: true,
                 keys: ["W"],
-                action: () => this.window.hide()
+                action: () => this.closeOpenChat()
             },
             {
                 control: true,
@@ -84,5 +84,15 @@ export default class HotkeyModule extends Module {
 
     private registerListeners() {
         this.window.webContents.on('before-input-event', (event, input) => this.onInput(event, input));
+    }
+
+    /**
+     * Closes the currently open conversation (like the official WhatsApp app's
+     * Ctrl+W) by sending Escape to the page, which returns it to the chat list.
+     */
+    private closeOpenChat() {
+        const webContents = this.window.webContents;
+        webContents.sendInputEvent({ type: 'keyDown', keyCode: 'Escape' });
+        webContents.sendInputEvent({ type: 'keyUp', keyCode: 'Escape' });
     }
 };

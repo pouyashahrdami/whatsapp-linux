@@ -22,6 +22,7 @@
   },
   "build": {
     "appId": "io.github.pouyashahrdami.WhatsAppDesktop",
+    "productName": "WhatsApp Desktop",
     "directories": {
       "output": "./build"
     },
@@ -31,6 +32,13 @@
     ],
     "extraFiles": [
       "data"
-    ]
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "data/icons/hicolor/512x512/apps/io.github.pouyashahrdami.WhatsAppDesktop.png",
+      "category": "Network"
+    }
   }
 }
