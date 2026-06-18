@@ -17,7 +17,8 @@ export function getUnreadMessages(title: string) {
 }
 
 function fromDataDirs(iconPath: string) {
-    for (let dataDir of process.env.XDG_DATA_DIRS.split(":")) {
+    const dataDirs = process.env.XDG_DATA_DIRS || "/usr/local/share:/usr/share";
+    for (let dataDir of dataDirs.split(":")) {
         let fullPath = path.join(dataDir, iconPath);
         if (fs.existsSync(fullPath))
             return fullPath;

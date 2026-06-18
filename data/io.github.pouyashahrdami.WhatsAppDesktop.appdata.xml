@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-  <id>io.github.mimbrero.WhatsAppDesktop</id>
+  <id>io.github.pouyashahrdami.WhatsAppDesktop</id>
   <name>WhatsApp Desktop</name>
   <summary>Unofficial WhatsApp Web Desktop client.</summary>
 
@@ -12,8 +12,8 @@
     <p>NOTE: This wrapper is not verified by, affiliated with, or supported by WhatsApp Inc.</p>
   </description>
 
-  <url type="bugtracker">https://github.com/mimbrero/whatsapp-desktop-linux/issues</url>
-  <url type="homepage">https://github.com/mimbrero/whatsapp-desktop-linux</url>
+  <url type="bugtracker">https://github.com/pouyashahrdami/whatsapp-linux/issues</url>
+  <url type="homepage">https://github.com/pouyashahrdami/whatsapp-linux</url>
 
   <requires>
     <display_length compare="ge">medium</display_length>
@@ -34,11 +34,23 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/mimbrero/whatsapp-desktop-linux/main/data/screenshots/screenshot-1.png</image>
+      <image>https://raw.githubusercontent.com/pouyashahrdami/whatsapp-linux/main/data/screenshots/screenshot-1.png</image>
     </screenshot>
   </screenshots>
 
   <releases>
+    <release version="2.0.0" date="2026-06-17">
+      <description>
+        <p>Modernized fork:</p>
+        <ul>
+          <li>Updated to Electron 42 (current Chromium), electron-builder 26 and TypeScript 5</li>
+          <li>User agent now tracks the bundled Chromium, fixing the "update your browser" page</li>
+          <li>Zoom level is remembered across restarts</li>
+          <li>Spell checking with right-click suggestions</li>
+          <li>Unread count now shows as a taskbar/dock badge</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2.3" date="2022-10-10">
       <description>
         <p>New features:</p>
@@ -104,6 +116,6 @@
     <release version="1.0" date="2022-01-17" />
   </releases>
 
-  <developer_name>Alberto Mimbrero</developer_name>
-  <update_contact>mimbrero.alberto@gmail.com</update_contact>
+  <developer_name>pouya shahrdami</developer_name>
+  <update_contact>pooyashahrdami@gmail.com</update_contact>
 </component>

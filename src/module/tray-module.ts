@@ -1,10 +1,10 @@
-import { BrowserWindow, Menu, MenuItem, Tray } from "electron";
+import { app, BrowserWindow, Menu, MenuItem, Tray } from "electron";
 import { findIcon, getUnreadMessages } from "../util";
 import WhatsApp from "../whatsapp";
 import Module from "./module";
 
-const ICON = findIcon("io.github.mimbrero.WhatsAppDesktop.png");
-const ICON_UNREAD = findIcon("io.github.mimbrero.WhatsAppDesktop-unread.png");
+const ICON = findIcon("io.github.pouyashahrdami.WhatsAppDesktop.png");
+const ICON_UNREAD = findIcon("io.github.pouyashahrdami.WhatsAppDesktop-unread.png");
 
 export default class TrayModule extends Module {
 
@@ -81,6 +81,7 @@ export default class TrayModule extends Module {
 
             this.updateMenu(unread);
             this.tray.setImage(unread == 0 ? ICON : ICON_UNREAD);
+            app.setBadgeCount(unread);
         });
     }
 };
